@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import TestimonialsSection from './components/TestimonialsSection';
 import UserMenu from './components/UserMenu';
+import Navigation from './components/Navigation';
 import SignUp from './SignUp';
 import Login from './Login';
 import Contact from './Contact';
@@ -15,6 +16,8 @@ import MentorSpotlight from './components/MentorSpotlight';
 import UpcomingEvents from './components/UpcomingEvents';
 import ApplicationTracker from './components/ApplicationTracker';
 import NewsletterSection from './components/NewsletterSection';
+import SocialLinks from './components/SocialLinks';
+import WhatsAppButton from './components/WhatsAppButton';
 
 // NEW IMPROVEMENT IMPORTS
 import ImpactMetrics from './components/ImpactMetrics';
@@ -59,7 +62,7 @@ const ThemeToggle = () => {
 
 const HeroSection = ({ onGetStarted, onLearnMore }) => (
   <section 
-    className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+    className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat pt-20"
     style={{ backgroundImage: `url(${heroImage})` }}
   >
     <div className="absolute inset-0 bg-black/60"></div>
@@ -344,17 +347,42 @@ const FeaturesSection = () => (
   </section>
 );
 
+// Updated Footer with Programmes, Contact, Privacy at the bottom
 const Footer = () => {
   const navigate = useNavigate();
   
+  const bottomLinks = [
+    { name: "Programmes", path: "/programmes", icon: "📚" },
+    { name: "Contact", path: "/contact", icon: "📞" },
+    { name: "Privacy", path: "/privacy", icon: "🔒" }
+  ];
+  
   return (
     <footer className="border-t border-border py-8">
-      <div className="container mx-auto max-w-7xl px-6 text-center text-muted-foreground">
-        <p>© 2026 Homeland. All rights reserved.</p>
-        <div className="flex justify-center gap-4 mt-4">
-          <button onClick={() => navigate('/privacy')} className="hover:text-foreground transition-colors cursor-pointer">Privacy</button>
-          <button onClick={() => navigate('/terms')} className="hover:text-foreground transition-colors cursor-pointer">Terms</button>
-          <button onClick={() => navigate('/contact')} className="hover:text-foreground transition-colors cursor-pointer">Contact</button>
+      <div className="container mx-auto max-w-7xl px-6">
+        {/* Bottom Navigation Links - Programmes, Contact, Privacy */}
+        <div className="flex flex-wrap justify-center gap-6 mb-8">
+          {bottomLinks.map((link) => (
+            <button
+              key={link.name}
+              onClick={() => navigate(link.path)}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-accent transition-colors"
+            >
+              <span>{link.icon}</span>
+              <span>{link.name}</span>
+            </button>
+          ))}
+        </div>
+        
+        {/* Social Links Section */}
+        <div className="mb-8">
+          <SocialLinks />
+        </div>
+        
+        {/* Copyright */}
+        <div className="text-center text-muted-foreground text-sm">
+          <p>© 2026 Homeland Ecosystem Hub. All rights reserved.</p>
+          <p className="text-xs mt-2">Empowering the next generation of African innovators</p>
         </div>
       </div>
     </footer>
@@ -385,8 +413,10 @@ const HomePage = () => {
 
   return (
     <>
+      <Navigation />
       <UserMenu />
       <ThemeToggle />
+      <WhatsAppButton />
       <HeroSection onGetStarted={handleGetStarted} onLearnMore={handleLearnMore} />
       
       {/* NEW IMPROVEMENT SECTIONS - IN ORDER */}
