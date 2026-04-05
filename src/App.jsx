@@ -9,6 +9,20 @@ import Terms from './Terms';
 import Privacy from './Privacy';
 import Admin from './Admin';
 import SetupAdmin from './SetupAdmin';
+import Programmes from './Programmes';
+import SuccessStories from './components/SuccessStories';
+import MentorSpotlight from './components/MentorSpotlight';
+import UpcomingEvents from './components/UpcomingEvents';
+import ApplicationTracker from './components/ApplicationTracker';
+import NewsletterSection from './components/NewsletterSection';
+
+// NEW IMPROVEMENT IMPORTS
+import ImpactMetrics from './components/ImpactMetrics';
+import WhyJoinUs from './components/WhyJoinUs';
+import PartnerSection from './components/PartnerSection';
+import SuccessStats from './components/SuccessStats';
+import FAQSection from './components/FAQSection';
+import BlogSection from './components/BlogSection';
 
 // Import local images for all team members
 import oulaPaulImage from './assets/images/oula-junior.jpg';
@@ -131,27 +145,117 @@ const VideoSection = () => {
   );
 };
 
+// Programmes Section
+const ProgrammesSection = () => {
+  const navigate = useNavigate();
+
+  const programmes = [
+    {
+      title: "Founders Lab",
+      stage: "Idea · Pre-seed",
+      description: "A practical program for first-time founders to validate, build, and launch their first product.",
+      icon: "🚀",
+      color: "from-orange-500/20 to-orange-600/10"
+    },
+    {
+      title: "Scale Accelerator",
+      stage: "Seed · Series A",
+      description: "For post-revenue companies ready to systemise growth and prepare for institutional capital.",
+      icon: "📈",
+      color: "from-blue-500/20 to-blue-600/10"
+    },
+    {
+      title: "Talent Academy",
+      stage: "Skills · Talent",
+      description: "Hands-on learning tracks that grow product, tech, and business talent for African ventures.",
+      icon: "🎓",
+      color: "from-green-500/20 to-green-600/10"
+    }
+  ];
+
+  return (
+    <section className="py-20 bg-background">
+      <div className="container mx-auto max-w-7xl px-6">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="text-sm uppercase tracking-wider text-accent font-semibold">
+            Signature Tracks
+          </span>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">
+            Our Programmes
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            Curated journeys for founders and operators at different stages – 
+            from first-time builders to scaling teams.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {programmes.map((programme, index) => (
+            <div 
+              key={index}
+              className="group bg-card border border-border rounded-xl p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            >
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${programme.color} flex items-center justify-center text-2xl mb-4`}>
+                {programme.icon}
+              </div>
+              <h3 className="font-display text-xl font-bold text-foreground mb-1">
+                {programme.title}
+              </h3>
+              <p className="text-accent text-sm font-medium mb-3">
+                {programme.stage}
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {programme.description}
+              </p>
+              <button 
+                onClick={() => navigate('/programmes')}
+                className="mt-4 text-accent text-sm font-medium hover:underline flex items-center gap-1 group-hover:gap-2 transition-all"
+              >
+                Learn more →
+              </button>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <button
+            onClick={() => navigate('/programmes')}
+            className="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-3 rounded-lg font-medium hover:bg-gold-light transition-all hover:gap-3"
+          >
+            View Our Programs
+            <span>→</span>
+          </button>
+          <p className="text-sm text-muted-foreground mt-4">
+            Join hundreds of entrepreneurs already building with us
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Gallery Section with authentic African images
 const GallerySection = () => {
   const galleryImages = [
     { 
-      src: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=600&h=400&fit=crop", 
-      alt: "African tech entrepreneur", 
-      caption: "Innovation & Technology" 
+      src: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?w=600&h=400&fit=crop", 
+      alt: "African tech hub workspace", 
+      caption: "African Tech Hub" 
     },
     { 
-      src: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop", 
-      alt: "African startup team", 
-      caption: "Team Collaboration" 
+      src: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?w=600&h=400&fit=crop", 
+      alt: "African startup culture", 
+      caption: "Startup Culture" 
     },
     { 
-      src: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop", 
-      alt: "African business professionals", 
-      caption: "Strategic Planning" 
+      src: "https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?w=600&h=400&fit=crop", 
+      alt: "African innovation lab", 
+      caption: "Innovation Lab" 
     },
     { 
-      src: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=600&h=400&fit=crop", 
-      alt: "African tech community", 
-      caption: "Community & Growth" 
+      src: "https://images.pexels.com/photos/3184316/pexels-photo-3184316.jpeg?w=600&h=400&fit=crop", 
+      alt: "African community event", 
+      caption: "Community Event" 
     }
   ];
 
@@ -284,12 +388,27 @@ const HomePage = () => {
       <UserMenu />
       <ThemeToggle />
       <HeroSection onGetStarted={handleGetStarted} onLearnMore={handleLearnMore} />
+      
+      {/* NEW IMPROVEMENT SECTIONS - IN ORDER */}
+      <ImpactMetrics />
+      <WhyJoinUs />
+      <PartnerSection />
+      
       <VideoSection />
+      <ProgrammesSection />
+      <SuccessStories />
+      <UpcomingEvents />
       <FeaturesSection />
+      <SuccessStats />
       <GallerySection />
       <TeamSection />
       <TestimonialsSection />
+      <FAQSection />
+      <BlogSection />
+      <MentorSpotlight />
+      <ApplicationTracker />
       <Footer />
+      <NewsletterSection />
     </>
   );
 };
@@ -305,6 +424,7 @@ function App() {
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/setup-admin" element={<SetupAdmin />} />
+      <Route path="/programmes" element={<Programmes />} />
     </Routes>
   );
 }

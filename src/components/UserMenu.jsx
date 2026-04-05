@@ -54,6 +54,9 @@ const UserMenu = () => {
     );
   }
 
+  // Check if user is super admin (UPDATED with new email)
+  const isSuperAdmin = user.email === 'benard12@gmail.com' || user.email === 'admin@homeland.com';
+
   return (
     <div className="fixed top-4 left-4 z-50">
       <div className="relative">
@@ -86,8 +89,8 @@ const UserMenu = () => {
               <span>🏠</span> Dashboard
             </button>
             
-            {/* Admin Panel Link - Only shows for admin user */}
-            {user.email === 'admin@homeland.com' && (
+            {/* Admin Panel Link - Only shows for Super Admin (UPDATED) */}
+            {isSuperAdmin && (
               <button
                 onClick={() => {
                   setIsOpen(false);
