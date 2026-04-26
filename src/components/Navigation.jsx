@@ -6,6 +6,7 @@ const Navigation = () => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +14,15 @@ const Navigation = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // Check if user is logged in
+    const checkAuth = () => {
+      const user = localStorage.getItem('currentUser');
+      setIsLoggedIn(!!user);
+    };
+    checkAuth();
   }, []);
 
   // Close dropdown when clicking outside
@@ -28,9 +38,9 @@ const Navigation = () => {
 
   const dropdownItems = [
     { name: "Dashboard", path: "/", icon: "🏠" },
-    { name: "Sign Up", path: "/signup", icon: "📝" },
     { name: "Login", path: "/login", icon: "🔑" },
-    { name: "Admin", path: "/admin", icon: "👑" }
+    { name: "Sign Up", path: "/signup", icon: "📝" },
+    { name: "Admin Panel", path: "/admin", icon: "👑" }
   ];
 
   return (
@@ -56,7 +66,7 @@ const Navigation = () => {
               </span>
             </button>
 
-            {/* Home Dropdown Menu */}
+            {/* Menu Dropdown */}
             <div className="dropdown-container relative ml-4">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -93,7 +103,7 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Right side - empty for now, ThemeToggle can go here if needed */}
+          {/* Right side - empty */}
           <div></div>
         </div>
       </div>

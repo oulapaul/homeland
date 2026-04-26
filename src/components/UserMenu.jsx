@@ -7,7 +7,6 @@ const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check for logged in user on component mount and when localStorage changes
     const checkUser = () => {
       const currentUser = localStorage.getItem('currentUser');
       if (currentUser) {
@@ -18,8 +17,6 @@ const UserMenu = () => {
     };
     
     checkUser();
-    
-    // Listen for storage events (in case user logs in/out in another tab)
     window.addEventListener('storage', checkUser);
     
     return () => {
@@ -35,30 +32,15 @@ const UserMenu = () => {
     window.location.reload();
   };
 
+  // CRITICAL CHANGE: Return null when not logged in - NO buttons shown
   if (!user) {
-    return (
-      <div className="fixed top-4 left-4 z-50 flex gap-2">
-        <button
-          onClick={() => navigate('/login')}
-          className="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-gold-light transition-colors shadow-lg"
-        >
-          Login
-        </button>
-        <button
-          onClick={() => navigate('/signup')}
-          className="bg-card border border-border text-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-muted transition-colors shadow-lg"
-        >
-          Sign Up
-        </button>
-      </div>
-    );
+    return null;
   }
 
-  // Check if user is super admin (UPDATED with new email)
   const isSuperAdmin = user.email === 'benard12@gmail.com' || user.email === 'admin@homeland.com';
 
   return (
-    <div className="fixed top-4 left-4 z-50">
+    <div className="fixed top-16 left-4 z-50">
       <div className="relative">
         <button
           onClick={() => setIsOpen(!isOpen)}
@@ -89,7 +71,6 @@ const UserMenu = () => {
               <span>🏠</span> Dashboard
             </button>
             
-            {/* Admin Panel Link - Only shows for Super Admin (UPDATED) */}
             {isSuperAdmin && (
               <button
                 onClick={() => {
